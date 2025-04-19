@@ -8,6 +8,7 @@ import companyRoute from "./routes/company.routes.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.routes.js"
 import connectDB from "./utils/db.js";//config ki jgh util lia h connection of database(atlas) to our server is made in it 
+import path from "path";
 detenv.config({});
  const app=express();
  app.get("/home",(req,response)=>{
@@ -16,6 +17,8 @@ detenv.config({});
       success:true
    }) 
 });
+const PORT =process.env.PORT || 3000;
+const _dirname=path.resolve();
  //middlewares
  app.use(express.json());
  app.use(express.urlencoded({extended:true}));
@@ -30,8 +33,11 @@ detenv.config({});
  app.use("/api/v1/company",companyRoute);
  app.use("/api/v1/job",jobRoute);
  app.use("/api/v1/application",applicationRoute);
+app.use(express.static(path.join(_dirname,"/frontend/dist")))
+app.get('*',(_,res)=>{
+   res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"));
+})
 
- const PORT =process.env.PORT || 3000;
  connectDB();
  app.listen(PORT,()=>{
   // for connection of database first import cinnectDB from utils

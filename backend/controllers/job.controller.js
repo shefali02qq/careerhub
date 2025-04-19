@@ -1,4 +1,5 @@
 import {Job} from "../models/job.model.js";
+//import redis from "../utils/redisClient.js";
 
 // for admin to post job
 export const postJob = async (req, res) => {
@@ -33,7 +34,7 @@ export const postJob = async (req, res) => {
         console.log(error);
     }
 }
-// FOR STUDENTS TO SEARCH
+//FOR STUDENTS TO SEARCH
 export const getAllJobs = async (req, res) => {
     try {
         const keyword = req.query.keyword || "";//This line extracts the keyword from the query parameters of the incoming request (e.g., ?keyword=developer).
@@ -68,6 +69,52 @@ export const getAllJobs = async (req, res) => {
         console.log(error);
     }
 }
+// export const getAllJobs = async (req, res) => {
+//     try {
+//         const keyword = req.query.keyword || "";
+//         const redisKey = `jobs:keyword:${keyword}`;
+
+//         // 🔍 Check cache first
+//         const cachedJobs = await redis.get(redisKey);
+//         if (cachedJobs) {
+//             return res.status(200).json({
+//                 jobs: JSON.parse(cachedJobs),
+//                 success: true,
+//                 cached: true
+//             });
+//         }
+
+//         //  Not in cache → Query MongoDB
+//         const query = {
+//             $or: [
+//                 { title: { $regex: keyword, $options: "i" } },
+//                 { description: { $regex: keyword, $options: "i" } },
+//             ]
+//         };
+
+//         const jobs = await Job.find(query).populate({ path: "company" }).sort({ createdAt: -1 });
+
+//         if (!jobs) {
+//             return res.status(404).json({
+//                 message: "Jobs not found.",
+//                 success: false
+//             });
+//         }
+
+//         // 💾 Store in Redis (cache for 60 seconds)
+//         await redis.set(redisKey, JSON.stringify(jobs), 'EX', 60);
+
+//         return res.status(200).json({
+//             jobs,
+//             success: true,
+//             cached: false
+//         });
+
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(500).json({ message: "Server Error" });
+//     }
+// };
 //  for student
 export const getJobById = async (req, res) => {
     try {
