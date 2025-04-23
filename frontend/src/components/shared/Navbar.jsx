@@ -17,6 +17,7 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
+        console.log("Logout initiated");
         try {
             const res = await axios.get(`${USER_API_END_POINT}/logout`, { withCredentials: true });
             if (res.data.success) {
@@ -46,7 +47,7 @@ const Navbar = () => {
                             ) : (
                                 <>
                                     <li><Link to="/">Home</Link></li>
-                                    <li><Link to="/jobs">Jobs</Link></li>
+                                    <li><Link to="/jobs">Jos</Link></li>
                                     <li><Link to="/browse">Browse</Link></li>
                                 </>
                             )
@@ -90,7 +91,7 @@ const Navbar = () => {
                                                 )
                                             }
 
-                                            <div className='flex w-fit items-center gap-2 cursor-pointer bg-black'>
+                                            <div className='flex w-fit items-center gap-2 cursor-pointer bg-white'>
                                                 <LogOut />
                                                 <Button onClick={logoutHandler} variant="link">Logout</Button>
                                             </div>
