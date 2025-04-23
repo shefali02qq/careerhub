@@ -47,7 +47,7 @@ const Navbar = () => {
                             ) : (
                                 <>
                                     <li><Link to="/">Home</Link></li>
-                                    <li><Link to="/jobs">Jos</Link></li>
+                                    <li><Link to="/jobs">Jobs</Link></li>
                                     <li><Link to="/browse">Browse</Link></li>
                                 </>
                             )
@@ -58,7 +58,8 @@ const Navbar = () => {
                     {//if user is not logged in after home,job browser or after cpmpanies and job depends who is there login and signup will come up
                         !user ? (
                             <div className='flex items-center gap-2'>
-                                <Link to="/login"><Button variant="outline">Login</Button></Link>
+                            <Link to="/login"><Button variant="outline" className="text-black">Login</Button></Link>
+
                                 <Link to="/signup"><Button className="bg-[#6A38C2] hover:bg-[#5b30a6]">Signup</Button></Link>
                             </div>
                         ) : (//if user is there logged in a circular profile will be shown on hover we get a popup seen (after line 70 popup ka content(for link we created routes in app.jsx ))
@@ -108,5 +109,5 @@ const Navbar = () => {
         </div>
     )
 }
-
+//<Link to="/login"><Button variant="outline">Login</Button></Link>
 export default Navbar
