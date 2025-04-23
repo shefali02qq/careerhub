@@ -20,8 +20,8 @@ import ProtectedRoute from './components/admin/ProtectedRoute'
 const appRouter = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/login" />
-    //element: <Home/>
+   // element: <Navigate to="/login" />
+    element: <Home/>
   },
   {
     path: '/login',
